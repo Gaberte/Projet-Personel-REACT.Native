@@ -45,13 +45,12 @@ export const LoginScreen = ({ onConnecte, onAllerInscription }) => {
       locations={[0, 0.3, 0.5, 0.75, 1]}
       style={styles.fond}
     >
-      <SafeAreaView style={styles.safe}>
+      <SafeAreaView style={styles.safeTransparent}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-          <ScrollView contentContainerStyle={styles.contenu} keyboardShouldPersistTaps="handled">
-            {/* Bloc du haut : titres + champs */}
+          <ScrollView contentContainerStyle={styles.contenuLogin} keyboardShouldPersistTaps="handled">
             <View>
               <Text style={styles.titre}>Ravis de vous revoir</Text>
               <Text style={styles.sousTitre}>Votre prochaine tenue vous attend.</Text>
@@ -89,20 +88,12 @@ export const LoginScreen = ({ onConnecte, onAllerInscription }) => {
               </View>
             </View>
 
-            {/* Bloc du bas : bouton + lien vers l'inscription */}
             <View style={styles.bas}>
               <Pressable
                 onPress={seConnecter}
-                style={({ pressed }) => [styles.bouton, pressed && styles.boutonPresse]}
+                style={({ pressed }) => [styles.boutonBlanc, pressed && styles.boutonPresse]}
               >
-                <LinearGradient
-                    colors={['#6B2FA8', '#C79BEA']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    style={styles.boutonDegrade}
-                >
-                <Text style={styles.boutonTexte}>Se connecter</Text>
-                </LinearGradient>
+                <Text style={styles.boutonBlancTexte}>Se connecter</Text>
               </Pressable>
 
               <Text style={styles.pied}>Pas encore de compte ?</Text>

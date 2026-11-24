@@ -163,7 +163,7 @@ export const InscriptionScreen = ({ onAllerConnexion }) => {
 
           <View style={styles.ligneSwitch}>
             <Text style={styles.libelle}>
-              J'accepte les <Text style={styles.lien}>CGU</Text>
+              J'accepte les <Text style={[styles.lien, styles.souligne]}>CGU</Text>
             </Text>
             <Switch
               value={cgu}

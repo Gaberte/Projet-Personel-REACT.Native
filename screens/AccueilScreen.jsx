@@ -5,8 +5,6 @@ import styles from '../screens styles/InscriptionStyles';
 
 export const AccueilScreen = ({ onCreerCompte, onSeConnecter }) => {
   return (
-    // Le dégradé est le fond de tout l'écran. "locations" indique à quelle
-    // hauteur (0 = haut, 1 = bas) chaque couleur doit être atteinte.
     <LinearGradient
       colors={['#F7F3FB', '#A77BD4', '#8A52C0', '#D9A8EA', '#FBF6FD']}
       locations={[0, 0.3, 0.55, 0.8, 1]}
@@ -15,8 +13,7 @@ export const AccueilScreen = ({ onCreerCompte, onSeConnecter }) => {
       <View style={styles.vagueHaut} />
       <View style={styles.vagueBas} />
 
-      <SafeAreaView style={styles.contenu}>
-        {/* Partie haute : logo + slogan */}
+      <SafeAreaView style={styles.contenuAccueil}>
         <View style={styles.haut}>
           <View style={styles.cercleLogo}>
             <Text style={styles.logo}>HOUSE{'\n'}OF{'\n'}CLOTHES</Text>
@@ -26,13 +23,12 @@ export const AccueilScreen = ({ onCreerCompte, onSeConnecter }) => {
           </Text>
         </View>
 
-        {/* Partie basse : bouton + lien */}
         <View style={styles.bas}>
           <Pressable
             onPress={onCreerCompte}
-            style={({ pressed }) => [styles.bouton, pressed && styles.boutonPresse]}
+            style={({ pressed }) => [styles.boutonBlanc, pressed && styles.boutonPresse]}
           >
-            <Text style={styles.boutonTexte}>Créer un compte</Text>
+            <Text style={styles.boutonBlancTexte}>Créer un compte</Text>
           </Pressable>
 
           <Text style={styles.pied}>

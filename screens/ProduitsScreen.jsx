@@ -27,9 +27,9 @@ const formaterPrix = (prix) => prix.toFixed(2).replace('.', ',') + ' €';
  </View>
 );*/
 const CarteProduit = ({ produit }) => {
-  // true si l'image n'a pas pu être chargée (pas d'internet, lien cassé...)
   const [imageEnErreur, setImageEnErreur] = useState(false);
   const uri = imagePour(produit);
+  const enRupture = produit.stock === 0;
 
   return (
     <View style={styles.carte}>
@@ -38,23 +38,23 @@ const CarteProduit = ({ produit }) => {
           <Image
             source={{ uri }}
             style={styles.image}
+            resizeMode="cover"
             onError={() => setImageEnErreur(true)}
           />
         ) : (
-          <Ionicons name="shirt-outline" size={30} color={couleurs.violetClair} />
+          <Ionicons name="shirt-outline" size={44} color={couleurs.violetClair} />
         )}
       </View>
 
-      <View style={styles.carteGauche}>
-        <Text style={styles.nom}>{produit.nom}</Text>
+      <View style={styles.infos}>
         <Text style={styles.categorie}>{produit.categorie}</Text>
-      </View>
-
-      <View style={styles.carteDroite}>
+        <Text style={styles.nom} numberOfLines={2}>{produit.nom}</Text>
         <Text style={styles.prix}>{formaterPrix(produit.prix)}</Text>
-        <Text style={[styles.stock, produit.stock === 0 && styles.rupture]}>
-          {produit.stock === 0 ? 'En rupture' : `Stock : ${produit.stock}`}
-        </Text>
+        <View style={[styles.etiquette, enRupture && styles.etiquetteRupture]}>
+          <Text style={[styles.etiquetteTexte, enRupture && styles.etiquetteTexteRupture]}>
+            {enRupture ? 'En rupture' : `Stock : ${produit.stock}`}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -202,7 +202,8 @@ useEffect(() => {
  }
  const filtreActif = recherche.trim() !== '' || categorie !== null;
  return (
-    <SafeAreaView style={styles.ecran}>
+    /*<SafeAreaView style={styles.ecran}>*/
+    <SafeAreaView style={styles.ecran} edges={['left', 'right', 'bottom']}>
     <View style={styles.fixe}>
         <Text style={styles.sousTitre}>{produits.length} / {total} produit(s)</Text>
         <Text style={styles.bonjour}>Connecté : {utilisateur.prenom} {utilisateur.nom}</Text>
@@ -270,7 +271,7 @@ useEffect(() => {
          keyboardShouldPersistTaps="handled"
          contentContainerStyle={styles.liste}
       />
-      <Text style={styles.sousTitre}>{produits.length} / {total} produit(s)</Text>
+      
     </SafeAreaView>
  );
 };
