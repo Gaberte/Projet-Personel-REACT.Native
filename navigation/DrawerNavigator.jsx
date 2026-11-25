@@ -12,17 +12,14 @@ import { couleurs } from '../screens styles/theme';
 
 const Drawer = createDrawerNavigator();
 
-// Le menu reçoit les props envoyées par App.js
-export default function DrawerNavigator({ utilisateur, onDeconnexion }) {
+export default function DrawerNavigator({ utilisateur, onDeconnexion, panier }) {
   return (
     <Drawer.Navigator
       initialRouteName="Produits"
-      // Couleurs du menu et de la barre du haut, reprises de theme.js
       screenOptions={{
         headerTintColor: couleurs.violetFonce,
         drawerActiveTintColor: couleurs.violet,
       }}
-      // Contenu du menu : la liste des écrans, puis le bouton Déconnexion
       drawerContent={(props) => (
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
@@ -44,7 +41,13 @@ export default function DrawerNavigator({ utilisateur, onDeconnexion }) {
           ),
         }}
       >
-        {() => <ProduitsScreen utilisateur={utilisateur} />}
+        {({ navigation }) => (
+          <ProduitsScreen
+            utilisateur={utilisateur}
+            navigation={navigation}
+            panier={panier}
+          />
+        )}
       </Drawer.Screen>
 
       <Drawer.Screen
@@ -60,13 +63,14 @@ export default function DrawerNavigator({ utilisateur, onDeconnexion }) {
 
       <Drawer.Screen
         name="Mon panier"
-        component={PanierScreen}
         options={{
           drawerIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" size={size} color={color} />
           ),
         }}
-      />
+      >
+        {() => <PanierScreen panier={panier} />}
+      </Drawer.Screen>
     </Drawer.Navigator>
   );
 }

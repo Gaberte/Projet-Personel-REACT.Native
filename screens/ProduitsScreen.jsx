@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-  View, Text, TextInput, FlatList, Pressable, ActivityIndicator, Image,
+  View, Text, TextInput, FlatList, Pressable, ActivityIndicator, Image, Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../screens styles/ProduitsStyles';
 import { couleurs } from '../screens styles/theme';
 import { imagePour } from '../utils/imagesProduits';
+import { formaterPrix } from '../utils/Formatage';
 import {
   initDb, listerProduits, compterProduits, listerCategories, insererProduit,
 } from '../database';
 
-const formaterPrix = (prix) => prix.toFixed(2).replace('.', ',') + ' €';
 /*const CarteProduit = ({ produit }) => (
  <View style={styles.carte}>
     <View style={styles.carteGauche}>
@@ -26,7 +26,7 @@ const formaterPrix = (prix) => prix.toFixed(2).replace('.', ',') + ' €';
     </View>
  </View>
 );*/
-const CarteProduit = ({ produit }) => {
+const CarteProduit = ({ produit, onAjouter }) => {
   const [imageEnErreur, setImageEnErreur] = useState(false);
   const uri = imagePour(produit);
   const enRupture = produit.stock === 0;
@@ -49,7 +49,23 @@ const CarteProduit = ({ produit }) => {
       <View style={styles.infos}>
         <Text style={styles.categorie}>{produit.categorie}</Text>
         <Text style={styles.nom} numberOfLines={2}>{produit.nom}</Text>
-        <Text style={styles.prix}>{formaterPrix(produit.prix)}</Text>
+
+        {/* Prix à gauche, bouton + à droite */}
+        <View style={styles.lignePrix}>
+          <Text style={styles.prix}>{formaterPrix(produit.prix)}</Text>
+          <Pressable
+            onPress={() => onAjouter(produit)}
+            disabled={enRupture}
+            style={({ pressed }) => [
+              styles.boutonPlus,
+              enRupture && styles.boutonPlusInactif,
+              pressed && styles.boutonPresse,
+            ]}
+          >
+            <Ionicons name="add" size={22} color={couleurs.blanc} />
+          </Pressable>
+        </View>
+
         <View style={[styles.etiquette, enRupture && styles.etiquetteRupture]}>
           <Text style={[styles.etiquetteTexte, enRupture && styles.etiquetteTexteRupture]}>
             {enRupture ? 'En rupture' : `Stock : ${produit.stock}`}
@@ -62,13 +78,15 @@ const CarteProduit = ({ produit }) => {
 const TAILLE_PAGE = 5
 const Separateur = () => <View style={styles.separateur} />;
 
-export const ProduitsScreen = ({ utilisateur, onDeconnexion }) => {
+export const ProduitsScreen = ({ utilisateur, navigation, panier }) => {
 
     const [produits, setProduits] = useState([]);
     const [categories, setCategories] = useState([]);
     const [recherche, setRecherche] = useState('');
     const [categorie, setCategorie] = useState(null);
     const [version, setVersion] = useState(0);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [dernierAjout, setDernierAjout] = useState(null);
     const [chargement, setChargement] = useState(true);
     const [rafraichissement, setRafraichissement] = useState(false);
     const [erreur, setErreur] = useState(null);
@@ -180,6 +198,17 @@ useEffect(() => {
         setErreur("Impossible d'ajouter le produit");
         }
  };
+const ajouterAuPanier = (produit) => {
+  panier.ajouter(produit);      // met le produit dans le panier (hook usePanier)
+  setDernierAjout(produit);     // retient lequel, pour l'afficher dans le message
+  setModalVisible(true);        // ouvre le modal
+};
+
+const allerAuPanier = () => {
+  setModalVisible(false);                // ferme le modal
+  navigation.navigate('Mon panier');     // ouvre la page du panier
+};
+
  if (chargement) {
     return (
     <SafeAreaView style={[styles.ecran, styles.centre]}>
@@ -247,7 +276,7 @@ useEffect(() => {
          chargementPlus ? <ActivityIndicator style={styles.pied} color="#2563EB" /> : null
          }
          keyExtractor={(item) => String(item.id)}
-         renderItem={({ item }) => <CarteProduit produit={item} />}
+         renderItem={({ item }) => <CarteProduit produit={item} onAjouter={ajouterAuPanier} />}
          ItemSeparatorComponent={Separateur}
          ListHeaderComponent={
          <View style={styles.entete}>
@@ -271,6 +300,40 @@ useEffect(() => {
          keyboardShouldPersistTaps="handled"
          contentContainerStyle={styles.liste}
       />
+      
+      <Modal
+  visible={modalVisible}
+  transparent
+  animationType="fade"
+  onRequestClose={() => setModalVisible(false)}
+>
+  <View style={styles.modalFond}>
+    <View style={styles.modalCarte}>
+      <View style={styles.modalIcone}>
+        <Ionicons name="checkmark" size={34} color={couleurs.violet} />
+      </View>
+
+      <Text style={styles.modalTitre}>Produit ajouté</Text>
+      <Text style={styles.modalTexte}>
+        {dernierAjout ? dernierAjout.nom : 'Le produit'} a bien été enregistré dans votre panier.
+      </Text>
+
+      <Pressable
+        onPress={allerAuPanier}
+        style={({ pressed }) => [styles.bouton, styles.boutonModal, pressed && styles.boutonPresse]}
+      >
+        <Text style={styles.boutonTexte}>Aller au panier</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={() => setModalVisible(false)}
+        style={({ pressed }) => [styles.boutonSecondaire, pressed && styles.boutonPresse]}
+      >
+        <Text style={styles.boutonSecondaireTexte}>Ajouter d'autres produits</Text>
+      </Pressable>
+    </View>
+  </View>
+  </Modal>
       
     </SafeAreaView>
  );

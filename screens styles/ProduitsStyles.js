@@ -94,7 +94,7 @@ export default StyleSheet.create({
     marginTop: 2,
     minHeight: 40,               // réserve la place de 2 lignes : toutes les cartes ont la même hauteur
   },
-  prix: { fontFamily: polices.serif, fontSize: 22, color: couleurs.violetFonce, marginTop: 8 },
+  prix: { fontFamily: polices.serif, fontSize: 19, color: couleurs.violetFonce },
 
   // Étiquette de stock (comme le badge de ta deuxième capture)
   etiquette: {
@@ -108,4 +108,69 @@ export default StyleSheet.create({
   etiquetteTexte: { fontSize: 12, fontWeight: '600', color: couleurs.succes },
   etiquetteRupture: { backgroundColor: '#FCE8E6' },   // rouge très clair
   etiquetteTexteRupture: { color: couleurs.erreur },
+
+    /* ---------- BOUTON + SUR LA CARTE ---------- */
+  lignePrix: {
+    flexDirection: 'row',               // prix à gauche, bouton à droite
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 8,
+  },
+  boutonPlus: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,                   // moitié de la taille : un cercle parfait
+    backgroundColor: couleurs.violet,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...ombreDouce,
+  },
+  boutonPlusInactif: { backgroundColor: '#D9D3E3' },   // produit en rupture : gris
+
+  /* ---------- MODAL ---------- */
+  modalFond: {
+    flex: 1,
+    backgroundColor: 'rgba(59,10,92,0.45)',   // violet foncé à 45 % d'opacité
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  modalCarte: {
+    width: '100%',
+    backgroundColor: couleurs.blanc,
+    borderRadius: 24,
+    padding: 24,
+    alignItems: 'center',
+    ...ombreDouce,
+  },
+  modalIcone: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: couleurs.champ,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  modalTitre: { fontFamily: polices.serif, fontSize: 22, color: couleurs.violetFonce, textAlign: 'center' },
+  modalTexte: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: couleurs.texteDoux,
+    textAlign: 'center',
+    marginTop: 8,
+    marginBottom: 20,
+  },
+  boutonModal: { width: '100%' },
+  boutonSecondaire: {
+    width: '100%',
+    height: 48,
+    marginTop: 10,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: couleurs.violet,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  boutonSecondaireTexte: { color: couleurs.violet, fontWeight: '700', fontSize: 15 },
 });
