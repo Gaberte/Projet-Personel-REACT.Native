@@ -42,7 +42,7 @@ export const initProduits = async () => {
  stock INTEGER NOT NULL DEFAULT 0
  );
  `);
- // On ne remplit la table que si elle est vide
+ // remplissage du tableau que s'il est vide
  const { n } = await db.getFirstAsync('SELECT COUNT(*) AS n FROM produits');
  if (n > 0) return;
  await db.withTransactionAsync(async () => {

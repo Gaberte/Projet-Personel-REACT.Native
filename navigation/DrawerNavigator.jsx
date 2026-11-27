@@ -12,7 +12,7 @@ import { couleurs } from '../screens styles/theme';
 
 const Drawer = createDrawerNavigator();
 
-export default function DrawerNavigator({ utilisateur, onDeconnexion, panier }) {
+export default function DrawerNavigator({ utilisateur, onDeconnexion }) {
   return (
     <Drawer.Navigator
       initialRouteName="Produits"
@@ -33,6 +33,7 @@ export default function DrawerNavigator({ utilisateur, onDeconnexion, panier }) 
         </DrawerContentScrollView>
       )}
     >
+      {/* Produits*/}
       <Drawer.Screen
         name="Produits"
         options={{
@@ -42,14 +43,11 @@ export default function DrawerNavigator({ utilisateur, onDeconnexion, panier }) 
         }}
       >
         {({ navigation }) => (
-          <ProduitsScreen
-            utilisateur={utilisateur}
-            navigation={navigation}
-            panier={panier}
-          />
+          <ProduitsScreen utilisateur={utilisateur} navigation={navigation} />
         )}
       </Drawer.Screen>
 
+      {/* Profil*/}
       <Drawer.Screen
         name="Profil"
         options={{
@@ -58,19 +56,25 @@ export default function DrawerNavigator({ utilisateur, onDeconnexion, panier }) 
           ),
         }}
       >
-        {() => <ProfilScreen utilisateur={utilisateur} />}
+        {({ navigation }) => (
+          <ProfilScreen
+            utilisateur={utilisateur}
+            navigation={navigation}
+            onDeconnexion={onDeconnexion}
+          />
+        )}
       </Drawer.Screen>
 
+      {/* Panier*/}
       <Drawer.Screen
         name="Mon panier"
+        component={PanierScreen}
         options={{
           drawerIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" size={size} color={color} />
           ),
         }}
-      >
-        {() => <PanierScreen panier={panier} />}
-      </Drawer.Screen>
+      />
     </Drawer.Navigator>
   );
 }

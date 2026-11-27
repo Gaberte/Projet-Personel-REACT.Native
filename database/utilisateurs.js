@@ -27,12 +27,13 @@ export const listerUtilisateurs = async () => {
 
 // Renvoie l'utilisateur si l'email et le mot de passe correspondent, sinon null
 export const verifierConnexion = async (email, mdp) => {
- const db = await getDb();
- return db.getFirstAsync(
- `SELECT id, nom, prenom, email FROM utilisateurs
- WHERE email = ? AND mdp = ?`,
- email.trim().toLowerCase(),
- mdp
- );
+  const db = await getDb();
+  return db.getFirstAsync(
+    `SELECT id, nom, prenom, email, telephone, newsletter, cree_le
+     FROM utilisateurs
+     WHERE email = ? AND mdp = ?`,
+    email.trim().toLowerCase(),
+    mdp
+  );
 };
 

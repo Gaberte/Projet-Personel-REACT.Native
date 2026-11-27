@@ -8,24 +8,11 @@ import styles from '../screens styles/ProduitsStyles';
 import { couleurs } from '../screens styles/theme';
 import { imagePour } from '../utils/imagesProduits';
 import { formaterPrix } from '../utils/Formatage';
+import { usePanierContext } from '../utils/PanierContext';
 import {
   initDb, listerProduits, compterProduits, listerCategories, insererProduit,
 } from '../database';
 
-/*const CarteProduit = ({ produit }) => (
- <View style={styles.carte}>
-    <View style={styles.carteGauche}>
-        <Text style={styles.nom}>{produit.nom}</Text>
-        <Text style={styles.categorie}>{produit.categorie}</Text>
-    </View>
-    <View>
-        <Text style={styles.prix}>{formaterPrix(produit.prix)}</Text>
-        <Text style={[styles.stock, produit.stock === 0 && styles.rupture]}>
-        {produit.stock === 0 ? 'En rupture' : `Stock : ${produit.stock}`}
-        </Text>   
-    </View>
- </View>
-);*/
 const CarteProduit = ({ produit, onAjouter }) => {
   const [imageEnErreur, setImageEnErreur] = useState(false);
   const uri = imagePour(produit);
@@ -78,8 +65,8 @@ const CarteProduit = ({ produit, onAjouter }) => {
 const TAILLE_PAGE = 5
 const Separateur = () => <View style={styles.separateur} />;
 
-export const ProduitsScreen = ({ utilisateur, navigation, panier }) => {
-
+export const ProduitsScreen = ({ utilisateur, navigation }) => {
+    const panier = usePanierContext();
     const [produits, setProduits] = useState([]);
     const [categories, setCategories] = useState([]);
     const [recherche, setRecherche] = useState('');
@@ -120,34 +107,6 @@ export const ProduitsScreen = ({ utilisateur, navigation, panier }) => {
     .then((liste) => setCategories([null, ...liste]))
     .catch(console.log);
  }, []);
- //dernière mise à jour
- /*
- useEffect(() => {
- let actuel = true;
- const lire = async () => {
- try {
- await initDb();
- const lignes = await listerProduits({ recherche, categorie });
- if (actuel) {
- setProduits(lignes);
- setErreur(null);
- }
- } catch (e) {
- console.log(e);
- if (actuel) setErreur('Impossible de charger les produits');
-
- } finally {
- if (actuel) {
- setChargement(false);
- setRafraichissement(false);
- }
- }
- };
- lire();
- return () => {
- actuel = false;
- };
- }, [recherche, categorie, version]);*/
 
 useEffect(() => {
  let actuel = true;
@@ -231,7 +190,7 @@ const allerAuPanier = () => {
  }
  const filtreActif = recherche.trim() !== '' || categorie !== null;
  return (
-    /*<SafeAreaView style={styles.ecran}>*/
+    
     <SafeAreaView style={styles.ecran} edges={['left', 'right', 'bottom']}>
     <View style={styles.fixe}>
         <Text style={styles.sousTitre}>{produits.length} / {total} produit(s)</Text>

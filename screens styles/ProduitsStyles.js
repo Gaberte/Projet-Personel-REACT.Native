@@ -2,12 +2,12 @@ import { StyleSheet } from 'react-native';
 import { couleurs, polices, ombreDouce } from '../screens styles/theme';
 
 export default StyleSheet.create({
-  /* ---------- ÉCRAN ---------- */
+  /*  ÉCRAN  */
   ecran: { flex: 1, backgroundColor: couleurs.fond },
   centre: { justifyContent: 'center', alignItems: 'center', padding: 24 },
   messageErreur: { color: couleurs.erreur, fontSize: 16, textAlign: 'center', marginBottom: 16 },
 
-  /* ---------- BOUTONS ---------- */
+  /*  BOUTONS  */
   bouton: {
     backgroundColor: couleurs.violet,
     borderRadius: 24,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   boutonTexte: { color: couleurs.blanc, fontSize: 16, fontWeight: '700' },
   boutonAjout: { alignSelf: 'flex-start', marginTop: 12, paddingVertical: 10 },
 
-  /* ---------- EN-TÊTE FIXE ---------- */
+  /*  EN-TÊTE FIXE  */
   fixe: { paddingHorizontal: 16, paddingTop: 8 },
   sousTitre: { fontSize: 14, color: couleurs.texteDoux, marginTop: 4 },
   bonjour: { fontSize: 14, color: couleurs.texte, marginTop: 4 },
@@ -35,7 +35,7 @@ export default StyleSheet.create({
     ...ombreDouce,
   },
 
-  /* ---------- PUCES DE CATÉGORIES ---------- */
+  /* PUCES DE CATÉGORIES */
   // flexShrink: 0 = cette liste n'a pas le droit d'être écrasée en hauteur
   listePuces: { flexGrow: 0, flexShrink: 0 },
   puces: { paddingHorizontal: 16, paddingVertical: 12 },
@@ -52,7 +52,7 @@ export default StyleSheet.create({
   puceTexte: { fontSize: 14, color: couleurs.texte },
   puceTexteActive: { color: couleurs.blanc, fontWeight: '600' },
 
-  /* ---------- GRILLE ---------- */
+  /* GRILLE  */
   liste: { paddingHorizontal: 16, paddingBottom: 24 },
   entete: { paddingVertical: 12 },
   separateur: { height: 14 },                    // espace entre deux lignes de cartes
@@ -60,7 +60,7 @@ export default StyleSheet.create({
   vide: { textAlign: 'center', color: couleurs.texteDoux, fontSize: 16, marginTop: 40 },
   pied: { paddingVertical: 16 },
 
-  /* ---------- CARTE PRODUIT ---------- */
+  /*  CARTE PRODUIT  */
   carte: {
     width: '48%',                // 2 cartes = 96 % de la largeur, les 4 % restants font l'espace entre elles
     backgroundColor: couleurs.blanc,

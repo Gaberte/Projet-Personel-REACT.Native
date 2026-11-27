@@ -5,11 +5,13 @@ import styles from '../screens styles/PanierStyles';
 import { couleurs } from '../screens styles/theme';
 import { formaterPrix } from '../utils/Formatage';
 import { imagePour } from '../utils/imagesProduits';
+import { usePanierContext } from '../utils/PanierContext';
 
 const Separateur = () => <View style={styles.separateur} />;
 
-export const PanierScreen = ({ panier }) => {
-  const { lignes, total, nombreArticles, retirer } = panier;
+export const PanierScreen = () => {
+  const { lignes, total, nombreArticles, retirer } = usePanierContext();
+
 
   return (
     <SafeAreaView style={styles.ecran} edges={['left', 'right', 'bottom']}>

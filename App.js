@@ -10,6 +10,7 @@ import { LoginScreen } from './screens/LoginScreen';
 import { InscriptionScreen } from './screens/InscriptionScreen';
 import DrawerNavigator from './navigation/DrawerNavigator';
 import { usePanier } from './hooksPersonnalisés/Panier';
+import { PanierProvider } from './utils/PanierContext';
 
 export default function App() {
   const [ecran, setEcran] = useState('accueil');
@@ -26,7 +27,7 @@ export default function App() {
     setUtilisateur(null);
   };
 
-  if (utilisateur) {
+  /*if (utilisateur) {
     return (
       <SafeAreaProvider>
         <StatusBar style="dark" />
@@ -37,6 +38,22 @@ export default function App() {
             panier={panier}
           />
         </NavigationContainer>
+      </SafeAreaProvider>
+    );
+  }*/
+
+  if (utilisateur) {
+    return (
+      <SafeAreaProvider>
+        <StatusBar style="dark" />
+        <PanierProvider>
+          <NavigationContainer>
+            <DrawerNavigator
+              utilisateur={utilisateur}
+              onDeconnexion={() => setUtilisateur(null)}
+            />
+          </NavigationContainer>
+        </PanierProvider>
       </SafeAreaProvider>
     );
   }

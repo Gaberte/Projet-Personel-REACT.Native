@@ -60,7 +60,7 @@ export default StyleSheet.create({
   },
   boutonBlancTexte: { fontFamily: polices.serif, fontSize: 24, color: couleurs.violetFonce },
 
-  /* ---------- INSCRIPTION ---------- */
+  /*  Inscription */
   safe: { flex: 1, backgroundColor: couleurs.fond },
   contenu: { paddingHorizontal: 24, paddingTop: 24, paddingBottom: 40 },
 
@@ -108,7 +108,7 @@ export default StyleSheet.create({
   },
   boutonSecondaireTexte: { color: couleurs.violet, fontWeight: '700', fontSize: 16 },
 
-  /* ---------- ACCUEIL ---------- */
+  /* ACCUEIL */
   contenuAccueil: {
     flex: 1,
     justifyContent: 'space-between',

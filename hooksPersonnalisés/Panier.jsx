@@ -1,7 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 
-// Un hook personnalisé est une fonction dont le nom commence par "use"
-// et qui peut appeler d'autres hooks. Ici, il regroupe toute la logique du panier.
+
 export const usePanier = () => {
   // Chaque ligne du panier : { id, nom, categorie, prix, stock, quantite }
   const [lignes, setLignes] = useState([]);
@@ -10,12 +9,12 @@ export const usePanier = () => {
     setLignes((actuelles) => {
       const existe = actuelles.find((l) => l.id === produit.id);
       if (existe) {
-        // Déjà dans le panier : on augmente seulement la quantité de cette ligne
+        // augmentation de la quantité de la ligne
         return actuelles.map((l) =>
           l.id === produit.id ? { ...l, quantite: l.quantite + 1 } : l
         );
       }
-      // Nouveau produit : on le copie et on ajoute quantite: 1
+      // Copie du nouveau produit : copie et ajoute quantite: 1
       return [...actuelles, { ...produit, quantite: 1 }];
     });
   }, []);

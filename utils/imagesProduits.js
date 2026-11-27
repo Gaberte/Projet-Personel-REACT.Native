@@ -63,7 +63,7 @@ const PAR_CATEGORIE = {
 };
 
 export const imagePour = (produit) => {
-  // Une adresse choisie par toi passe toujours en premier
+  // Une adresse choisie passe toujours en premier
   if (IMAGES_DIRECTES[produit.nom]) return IMAGES_DIRECTES[produit.nom];
 
   const nom = produit.nom.toLowerCase(); // minuscules, pour comparer sans se soucier des majuscules

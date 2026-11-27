@@ -81,10 +81,10 @@ différentes sections de l'application.
   </tr>
   <tr>
     <td align="center">
-      <img src="screenshots/catalogue.png" width="230">
+      <img src="screenshots/produits.png" width="230">
     </td>
     <td align="center">
-      <img src="screenshots/produits.png" width="230">
+      <img src="screenshots/catalogue.png" width="230">
     </td>
     <td align="center">
       <img src="screenshots/navigation.png" width="230">
@@ -152,6 +152,41 @@ directement au panier.
 
 ---
 
+---
+
+### 4. Gestion du profil utilisateur
+
+L'application dispose d'un espace personnel permettant 
+à l'utilisateur de consulter les informations associées 
+à son compte.
+
+<table>
+  <tr>
+    <th>Profil utilisateur</th>
+    <th>Informations personnelles</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="screenshots/profil.png" width="230">
+    </td>
+    <td align="center">
+      <img src="screenshots/informations-profil.png" width="230">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Interface de présentation du profil utilisateur.
+    </td>
+    <td>
+      Consultation des informations personnelles 
+      associées au compte utilisateur.
+    </td>
+  </tr>
+</table>
+
+---
+
+
 ## Fonctionnalités
 
 - Inscription et connexion des utilisateurs
@@ -166,6 +201,8 @@ directement au panier.
 - Affichage conditionnel
 - Fenêtres modales de confirmation
 - Menu de navigation latéral
+- Gestion du profil utilisateur
+- Consultation des informations personnelles
 
 ## Technologies utilisées
 
