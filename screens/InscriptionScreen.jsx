@@ -72,7 +72,7 @@ export const InscriptionScreen = ({ onAllerConnexion }) => {
               <Text style={styles.label}>Nom</Text>
               <TextInput
                 style={[styles.champ, erreurs.nom && styles.champErreur]}
-                placeholder="Dupont"
+                placeholder="Nom"
                 placeholderTextColor={couleurs.placeholder}
                 autoCapitalize="words"
                 autoCorrect={true}
@@ -86,7 +86,7 @@ export const InscriptionScreen = ({ onAllerConnexion }) => {
               <Text style={styles.label}>Prénom</Text>
               <TextInput
                 style={[styles.champ, erreurs.prenom && styles.champErreur]}
-                placeholder="Gabi"
+                placeholder="Prénom"
                 placeholderTextColor={couleurs.placeholder}
                 autoCapitalize="words"
                 autoCorrect={true}
